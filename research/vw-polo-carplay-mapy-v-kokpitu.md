@@ -134,6 +134,42 @@ Pro srovnání: UK retrofiter účtuje za Golf 7 „Virtual Cockpit + MIB2.5 + 9
 
 ---
 
+## 8. Doplněk: VW mapy v AID + Waze uprostřed – jde to?
+
+### 8.1 Hlavní háček: CarPlay navigace vypíná mapu v kokpitu
+I když budeš mít funkční VW navigaci, kombinace „VW mapa před řidičem + Waze s trasou uprostřed“ **z výroby nefunguje**:
+- CarPlay i Android Auto při aktivním navádění (route guidance) **vynutí vypnutí doplňkových map OEM navigace** (kokpit, HUD). Telefon hlásí jednotce „naviguju já“, jednotka ukončí nebo potlačí vlastní navádění a AID přepne na kompas nebo prázdný placeholder. Je to záměr protokolu: v jednu chvíli smí navádět jen jedna navigace.
+- Na MIB2 High to komunita obchází patchem v mib2-toolbox („allow both nav systems“ / NavActiveIgnore). I tam jsou hlášené vedlejší efekty (černá obrazovka CarPlay). **Pro MST2 takový patch neexistuje.**
+- Starý trik „spustit trasu ve Waze, zastavit, znovu spustit“ fungoval jen do Waze 4.66.0.1 (2021). Byla to chyba ve Waze a je opravená.
+- *Jistota: střední až vysoká, že se to týká i Pola s MST2. Chování je v celém koncernu stejné, na Polu konkrétně ověřené ale nemám.*
+
+### 8.2 Kombinace, která reálně funguje
+- **Navádí VW navigace** (mapa a šipky v AID) a **Waze běží v CarPlay bez zadané trasy** jen kvůli hlášením (policie, nehody, kolony, radary). Waze bez trasy navádění nehlásí, takže VW mapu v kokpitu nepotlačí. Tuhle kombinaci majitelé VAG aut běžně používají.
+- Nevýhoda: VW navigace má horší data o provozu a výpočet trasy než Waze.
+
+### 8.3 Open-source varianta
+**Neexistuje a na MST2 ani nejde udělat.** Mapa v AID není samostatná aplikace. Jde o video stream, který renderuje uzavřený navigační engine VW uvnitř jednotky a posílá ho přes MOST. MST2 nemá aplikační platformu, na kterou by šlo nahrát třeba OsmAnd, a nikdo nenapsal náhradní renderer jako OneB1t pro MHI2.
+
+### 8.4 Navigace „zdarma“ hackem
+Technicky existuje. MST2 Toolbox (jen Technisat „T“) umí patchnout ověřování SWaP/FEC, takže jednotka přijme aktivační kód navigace bez licence. Mapy se pak nahrávají z neoficiálních zdrojů na originální CID kartu. Fakta k rozhodnutí:
+- Jde o nelicencované použití softwaru a mapových dat (HERE/TomTom). Návod krok za krokem ani odkazy na stažené mapy sem dávat nebudu.
+- Riziko zbrickování jednotky. U jednotek s jedním SD slotem patch přes toolbox nejde (nutný zápis do eMMC).
+- I s tím narazíš na 8.1: Waze s trasou ti VW mapu z AID stejně vyhodí.
+- Pro mapu v AID je potřeba MOST spoj 5F ↔ 17. U aut původně bez navigace (Composition Media) nemusí být vůbec natažený, stejně jako GPS anténa.
+
+### 8.5 Legální cesty
+- **Dealer, oficiální aktivace nebo dovybavení navigace:** zeptej se s VIN, zda pro tvou jednotku existuje FEC navigace + SD karta s mapou (pro MIB2 se to prodávalo jako příslušenství). Cenu ani dostupnost v roce 2026 jsem neověřil.
+- **Výměna za Discover Media (MST2 s navigací):** použitá jednotka zhruba 300–700 € plus odstranění ochrany komponent, kódování a případně MOST a GPS.
+
+### 8.6 Když navigaci máš, ale nefunguje – kontrolní seznam
+1. **SD karta s mapami** je ve správném slotu a je to **originální karta** (MST2 má CID-lock vázaný na kartu, kopie na jinou kartu se odmítne).
+2. **FEC navigace** je v jednotce aktivní (seznam FEC v servisním menu nebo v OBDeleven, jednotka 5F). Po výměně jednotky či zásahu může chybět nebo může být aktivní ochrana komponent.
+3. **GPS:** anténa a kabel (modrý FAKRA konektor) jsou zapojené a pozice se fixuje.
+4. **Mapa v AID:** kódování AID (jednotka 17) a 5F pro zobrazení mapy v kokpitu (OBDeleven) a fyzický MOST spoj.
+5. **Aktualizace map:** přes oficiální portál VW (SD karta, postup v manuálu „Discover Media Gen.2 Map update“). Zda je pro tvůj rok a jednotku update ještě zdarma, ověř u VW.
+
+---
+
 ## Zdroje
 - jilleb/mib2-toolbox, issue #159 (2021–2024 diskuse, MOST vs. LVDS, H.264 pipeline): https://github.com/jilleb/mib2-toolbox/issues/159
 - omonob/MHI2-Carplay-Maps (README, podporované MU a clustery, verze 30. 9. 2026): https://github.com/omonob/MHI2-Carplay-Maps
@@ -156,3 +192,9 @@ Pro srovnání: UK retrofiter účtuje za Golf 7 „Virtual Cockpit + MIB2.5 + 9
 - VW Newsroom – Polo (MIB2 vs. MIB3, Discover Pro 9,2″ až u faceliftu, AID 1280×480): https://www.volkswagen-newsroom.com/en/the-new-polo-world-premiere-7136/digitalised-interior-7139
 - 9to5mac – iOS 17.4 CarPlay instrument cluster: https://9to5mac.com/2024/02/22/ios-17-4-carplay/
 - vagcodingleicester – cena retrofitu Golf 7 VC + MIB2.5: https://vagcodingleicester.co.uk/shop/vw-golf-mk7-7-5-virtual-cockpit-retrofit-9-2screenmib2-5/
+- AudiWorld – CarPlay/AA vypíná OEM mapy v kokpitu při navádění: https://www.audiworld.com/forums/a4-b9-platform-discussion-212/factory-navigation-virtual-cockpit-waze-mmi-3052120/page2/
+- seatcupra.net – Waze/Google Maps a potlačení kokpitu na MIB2: https://www.seatcupra.net/forums/threads/waze-google-maps-and-the-dashboard-override.463381/
+- XDA – Android Auto deaktivuje vestavěnou navigaci: https://xdaforums.com/t/q-how-to-stop-android-auto-deactivating-the-cars-build-in-navigation.3839492/
+- vwvortex – mapa v kokpitu + CarPlay navigace současně: https://www.vwvortex.com/threads/anyway-to-display-nav-map-on-the-digital-cockpit-and-use-carplay-to-naviigate-at-the-same-time.9279971/
+- seatcupra.net – MST2 mapy, CID karta: https://www.seatcupra.net/forums/threads/updating-the-inbuilt-mib2-satnav-mib2-tricks-and-mib1.388586/post-5106370
+- VW – Discover Media Gen.2 map update manuál: https://app-connect.volkswagen.com/mapupdates/manuals/Discover_Media_Gen.2_November_2020.pdf
