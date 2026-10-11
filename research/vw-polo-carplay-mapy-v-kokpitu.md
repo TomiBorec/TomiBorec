@@ -170,6 +170,16 @@ Technicky existuje. MST2 Toolbox (jen Technisat „T“) umí patchnout ověřov
 
 ---
 
+## 9. Doplněk: „navigaci si můžu koupit“ – pozor, to ukazuje spíš na MIB3
+
+- Nákup navigace přímo v autě (In-Car Shop) nebo ve VW Connect je funkce jednotky **Ready 2 Discover (MIB3)**, kterou Polo dostalo **až s faceliftem 2021**. MIB2 (Composition/Discover Media) žádný In-Car Shop nemá. Tam jde navigace dokoupit jen jako retrofit u dealera. *Jistota: střední až vysoká.*
+- Pokud ti auto nebo aplikace nabízí „koupit navigaci“, máš skoro jistě **MIB3**, a tedy nejspíš Polo **po** faceliftu, i když jsi myslel, že je před ním.
+- **Na MIB3 je situace lepší:** podle reportů z Golfu 8 a Audi s MIB3 často zůstane nativní VW mapa v kokpitu, i když uprostřed naviguje Waze přes CarPlay. U Google Map se mapa v kokpitu podle jednoho reportu vypíná. Reporty jsou anekdotické a rozporné, *jistota nízká až střední*.
+- Podmínky nákupu (VW UK): VW ID účet, platná smlouva VW Connect / We Connect, ověření hlavního uživatele. Licence zůstává u auta. Obsah: 2D mapa a body zájmu offline, živá doprava jen s VW Connect Plus. Cenu jsem v oficiálních zdrojích nenašel, je vidět jen v In-Car Shopu.
+- Zdroje: https://www.volkswagen-vans.co.uk/en/connected-services/vw-connect/upgrades.html , https://www.volkswagen-newsroom.com/en/press-releases/configuration-now-possible-launch-of-the-new-polo-with-standard-digital-cockpit-and-infotainment-system-7268 , https://www.vwvortex.com/threads/anyway-to-display-nav-map-on-the-digital-cockpit-and-use-carplay-to-naviigate-at-the-same-time.9279971/ , https://www.audiworld.com/forums/a4-b9-platform-discussion-212/factory-navigation-virtual-cockpit-waze-mmi-3052120/
+
+---
+
 ## Zdroje
 - jilleb/mib2-toolbox, issue #159 (2021–2024 diskuse, MOST vs. LVDS, H.264 pipeline): https://github.com/jilleb/mib2-toolbox/issues/159
 - omonob/MHI2-Carplay-Maps (README, podporované MU a clustery, verze 30. 9. 2026): https://github.com/omonob/MHI2-Carplay-Maps
