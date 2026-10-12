@@ -1,4 +1,6 @@
-# CarPlay mapy (Apple Mapy / Google Mapy / Waze) v digitálním kokpitu VW – rešerše pro Polo AW 2021 (před faceliftem)
+# CarPlay mapy (Apple Mapy / Google Mapy / Waze) v digitálním kokpitu VW – rešerše pro Polo AW 2021
+
+> **AKTUALIZACE 12. 10. 2026: auto má MIB3 (3G5035820E), ne MIB2. Platí kapitola 10. Kapitoly 2–8 se týkají MIB2 a jsou pro tohle auto už jen kontext.**
 
 Stav k: 10. 10. 2026. Komunitní projekty se v tomhle oboru mění po týdnech, takže to za pár měsíců může vypadat jinak.
 
@@ -177,6 +179,38 @@ Technicky existuje. MST2 Toolbox (jen Technisat „T“) umí patchnout ověřov
 - **Na MIB3 je situace lepší:** podle reportů z Golfu 8 a Audi s MIB3 často zůstane nativní VW mapa v kokpitu, i když uprostřed naviguje Waze přes CarPlay. U Google Map se mapa v kokpitu podle jednoho reportu vypíná. Reporty jsou anekdotické a rozporné, *jistota nízká až střední*.
 - Podmínky nákupu (VW UK): VW ID účet, platná smlouva VW Connect / We Connect, ověření hlavního uživatele. Licence zůstává u auta. Obsah: 2D mapa a body zájmu offline, živá doprava jen s VW Connect Plus. Cenu jsem v oficiálních zdrojích nenašel, je vidět jen v In-Car Shopu.
 - Zdroje: https://www.volkswagen-vans.co.uk/en/connected-services/vw-connect/upgrades.html , https://www.volkswagen-newsroom.com/en/press-releases/configuration-now-possible-launch-of-the-new-polo-with-standard-digital-cockpit-and-infotainment-system-7268 , https://www.vwvortex.com/threads/anyway-to-display-nav-map-on-the-digital-cockpit-and-use-carplay-to-naviigate-at-the-same-time.9279971/ , https://www.audiworld.com/forums/a4-b9-platform-discussion-212/factory-navigation-virtual-cockpit-waze-mmi-3052120/
+
+---
+
+## 10. ZJIŠTĚNO Z AUTA (12. 10. 2026): jednotka je MIB3, ne MIB2
+
+Údaje z obrazovky „Informace o systému“, „HMI Versions“ a seznamu FEC:
+
+| Položka | Hodnota | Význam |
+|---|---|---|
+| Číslo zařízení | **3G5035820E** | Díl VW pro **MIB3** „Discover Media“ s integrovanými mapami (stejný díl jako Tiguan 2G 2021, Passat B8 FL, Arteon). *Jistota: vysoká* |
+| Hardware / Software | H22 / **0330** | MIB3 SW řada 02xx–03xx (Tiguan reporty: 0278 → 0324) |
+| HMI | H40.272.281_OISmall2_EU, build 2023-08-18 | MIB3 HMI („OI“ skin). Firmware aktualizovaný v roce 2023 |
+| Navigační databáze | 20.3 | Mapová data jsou v jednotce, ale navigace není aktivovaná (viz FEC) |
+
+**FEC (aktivační kódy):**
+- Podporované: 00000700, 00040100, 00060100, 00060300, 00060400, 00070400, 00070500, 00070600, 00070900, 00070a00, 00070b00, 00070c00, 00071c00
+- **Instalované (platné):** 00070b00, 00070a00, 00060300, 00070900, 00071c00
+- Výklad (komunitní zdroje, *jistota střední*):
+  - 00070a00 = Apple CarPlay, 00070b00 = Android Auto, 00060300 = MirrorLink/App-Connect → **aktivní**
+  - **00040100 = Navigace → podporovaná, ale NEaktivní.** To odpovídá „navigaci si můžu koupit“ (Ready 2 Discover / Function on Demand)
+  - 00060400 = Sport HMI (Performance Monitor) → podporovaný, neaktivní
+  - 00060100 = Vehicle Data Interface → neaktivní
+  - 00070900, 00071c00 = neidentifikováno
+
+**Důsledky (přepisují předchozí závěry pro MIB2):**
+1. **CarPlay mapa v kokpitu: pořád ne.** Pro MIB3 neexistuje veřejný root ani mod (stav září–říjen 2026).
+2. **VW mapa v kokpitu + Waze uprostřed: realistické.** Stačí koupit navigaci (FEC 00040100) přes In-Car Shop nebo VW Connect. Na MIB3 reporty uvádějí, že VW mapa v kokpitu zůstane, i když uprostřed naviguje Waze (u Google Map ne vždy). *Jistota: nízká až střední, otestovat.* Zobrazení mapy v kokpitu může vyžadovat adaptaci v 5F (viz vag-coding Golf 8), případně odemčení SFD.
+3. **Hackování navigace zdarma na MIB3 nejde** (žádný veřejný patch SWaP). Zbývá legální nákup.
+4. **Bezdrátový CarPlay:** MIB3 ho hardwarově umí. Pokud ho auto nemá, jde zapnout adaptací v 5F (OBDeleven, případně odemčení SFD). Nejdřív ověřit, jestli už nefunguje.
+5. **Polo je buď facelift, nebo pozdní předfaceliftový kus s MIB3.** Pro naše účely to je jedno, rozhoduje jednotka.
+
+Zdroje: https://www.oemvwshop.com/3g5035820e-control-unit-for-infor-mation-electronics-with-radio-bluetooth-and-navigation-with-integrated-map-data-p2893231/ , https://www.drive2.ru/l/675611138557239994/ , https://www.xdalys.lt/en/product/11855152336/ , https://vwwatercooled.com.au/forums/f235/swap-fec-my21-alltrack-132688.html , https://vwcoding.ru/en/utils/fec/ , https://github.com/Mr-MIBonk/M.I.B._More-Incredible-Bash/wiki/MHI2-MHI2Q-FEC-overview , https://www.vag-coding.net/vw/golf-8-5h/golf-8-5h-virtual-cockpit-and-mib3-navigation-map/ , https://www.vag-coding.net/vw/golf-8-5h/golf-8-5h-wireless-carplay-activation/
 
 ---
 
