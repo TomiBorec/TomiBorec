@@ -208,7 +208,9 @@ Technicky existuje. MST2 Toolbox (jen Technisat „T“) umí patchnout ověřov
 2. **VW mapa v kokpitu + Waze uprostřed: realistické.** Stačí koupit navigaci (FEC 00040100) přes In-Car Shop nebo VW Connect. Na MIB3 reporty uvádějí, že VW mapa v kokpitu zůstane, i když uprostřed naviguje Waze (u Google Map ne vždy). *Jistota: nízká až střední, otestovat.* Zobrazení mapy v kokpitu může vyžadovat adaptaci v 5F (viz vag-coding Golf 8), případně odemčení SFD.
 3. **Hackování navigace zdarma na MIB3 nejde** (žádný veřejný patch SWaP). Zbývá legální nákup.
 4. **Bezdrátový CarPlay:** MIB3 ho hardwarově umí. Pokud ho auto nemá, jde zapnout adaptací v 5F (OBDeleven, případně odemčení SFD). Nejdřív ověřit, jestli už nefunguje.
-5. **Polo je buď facelift, nebo pozdní předfaceliftový kus s MIB3.** Pro naše účely to je jedno, rozhoduje jednotka.
+5. **Bezdrátový CarPlay už auto má** (potvrzeno majitelem 12. 10. 2026).
+6. **Kontrola 12. 10. 2026:** pro MIB3 stále neexistuje veřejný root, modkit ani patchnutý firmware (zsec, září 2026). Podle fór mají malí prodejci soukromé metody SSH/FEC a neprodávají je veřejně. Na ruském fóru má prý být „specialista“, který MIB3 patchuje (neověřené). Nabídky na MHH Auto, OLX apod. jsou neověřené a riskantní. Nikdo veřejně neukázal CarPlay mapu v kokpitu s MIB3. Zdroje: https://github.com/jilleb/mib2-toolbox/issues/95 , https://blog.zsec.uk/audi-carplay-2026/
+7. **Polo je buď facelift, nebo pozdní předfaceliftový kus s MIB3.** Pro naše účely to je jedno, rozhoduje jednotka.
 
 Zdroje: https://www.oemvwshop.com/3g5035820e-control-unit-for-infor-mation-electronics-with-radio-bluetooth-and-navigation-with-integrated-map-data-p2893231/ , https://www.drive2.ru/l/675611138557239994/ , https://www.xdalys.lt/en/product/11855152336/ , https://vwwatercooled.com.au/forums/f235/swap-fec-my21-alltrack-132688.html , https://vwcoding.ru/en/utils/fec/ , https://github.com/Mr-MIBonk/M.I.B._More-Incredible-Bash/wiki/MHI2-MHI2Q-FEC-overview , https://www.vag-coding.net/vw/golf-8-5h/golf-8-5h-virtual-cockpit-and-mib3-navigation-map/ , https://www.vag-coding.net/vw/golf-8-5h/golf-8-5h-wireless-carplay-activation/
 
